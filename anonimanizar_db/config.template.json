@@ -1,0 +1,18 @@
+{
+  "database": {
+    "source_uri": "postgresql://usuario:password@host:puerto/db_produccion",
+    "target_uri": "postgresql://usuario:password@host:puerto/db_test_anon",
+    "faker_locale": "es_AR"
+  },
+  "tables": {
+    "public.customauth_user": {
+      "anonymize": {
+        "password": "password",
+        "email": "unique.email",
+        "cuit": "numerify('###########')",
+        "dni": "numerify('########')"
+      }
+    }
+    
+  }
+}
