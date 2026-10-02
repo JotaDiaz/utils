@@ -4,6 +4,20 @@ import shutil
 import argparse
 
 
+def mover_sin_sobrescribir(origen, carpeta_destino):
+    nombre_archivo = os.path.basename(origen)
+    nombre, extension = os.path.splitext(nombre_archivo)
+    destino = os.path.join(carpeta_destino, nombre_archivo)
+    contador = 1
+
+    while os.path.exists(destino):
+        nombre_nuevo = f"{nombre} ({contador}){extension}"
+        destino = os.path.join(carpeta_destino, nombre_nuevo)
+        contador += 1
+
+    shutil.move(origen, destino)
+
+
 def ordenar_archivos(carpeta):
     img_extensiones = ["jpg", "jpeg", "png", "gif", "bmp", "tiff", "webp", "svg", "ico", "heic","jfif"]
     video_extension = ["mp4", "mkv", "mov", "avi", "flv", "wmv", "webm", "mpeg", "mpg", "3gp"]
@@ -30,26 +44,26 @@ def ordenar_archivos(carpeta):
 
         if extension in img_extensiones:
             destino = os.path.join(ruta, 'imagenes')
-            shutil.move(ruta_archivo, destino)
+            mover_sin_sobrescribir(ruta_archivo, destino)
 
         elif extension in video_extension:
             destino = os.path.join(ruta, 'videos')
-            shutil.move(ruta_archivo, destino)
+            mover_sin_sobrescribir(ruta_archivo, destino)
 
         elif extension in hoja_calculo_extension:
             destino = os.path.join(ruta, 'hoja_calculo')
-            shutil.move(ruta_archivo, destino)
+            mover_sin_sobrescribir(ruta_archivo, destino)
 
         elif extension in texto_extension:
             destino = os.path.join(ruta, 'texto')
-            shutil.move(ruta_archivo, destino)
+            mover_sin_sobrescribir(ruta_archivo, destino)
 
         elif extension in pdf_extension:
             destino = os.path.join(ruta, 'PDFs')
-            shutil.move(ruta_archivo, destino)
+            mover_sin_sobrescribir(ruta_archivo, destino)
         else:
             destino = os.path.join(ruta, 'ZZotros')
-            shutil.move(ruta_archivo, destino)
+            mover_sin_sobrescribir(ruta_archivo, destino)
 
     for carpeta in carpetas:
         path_carpeta = os.path.join(ruta, carpeta)
